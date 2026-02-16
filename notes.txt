@@ -1,0 +1,159 @@
+- React is all about using components to simplify web dev 
+
+- Add classNames to make the components do things like bold font, spacing etc 
+
+- Use components from libray like search bar etc 
+
+- define all the component files in a folder in src 
+
+
+yarn create vite react-foodapp --template react
+cd react-foodapp
+yarn
+yarn add -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+yarn dev
+
+----------------------------------------------------------------------
+React = Build UIs with reusable components (like LEGO blocks)
+
+1. Components
+
+Self-contained pieces of UI (HTML + styling + logic), Reusable across your app,  Each component = 1 file (usually)
+
+Basic Structure
+jsxfunction ComponentName() {
+  return (
+    <div className="styling-classes">
+      {/* Your HTML-like code (JSX) */}
+    </div>
+  );
+}
+
+export default ComponentName;  // Export to use elsewhere
+
+Using Components
+jsximport Header from './components/Header';
+import FoodCard from './components/FoodCard';
+
+function App() {
+  return (
+    <div>
+      <Header />
+      <FoodCard />
+    </div>
+  );
+}
+
+2. JSX (JavaScript + HTML)
+jsx// Use className (not class)
+<div className="text-blue-500 font-bold">Hello</div>
+
+// Embed JavaScript with {}
+<h1>{userName}</h1>
+<p>Total: ${price * quantity}</p>
+
+// Conditional rendering
+{isLoggedIn ? <Dashboard /> : <Login />}
+
+// Lists (use .map())
+{foods.map(food => (
+  <FoodCard key={food.id} name={food.name} />
+))}
+
+3. Props (Pass Data Down)
+jsx// Parent passes data
+<FoodCard name="Pizza" price={12.99} image="pizza.jpg" />
+
+// Child receives data
+function FoodCard({ name, price, image }) {
+  return (
+    <div>
+      <img src={image} />
+      <h3>{name}</h3>
+      <p>${price}</p>
+    </div>
+  );
+}
+
+4. State (Data That Changes)
+jsximport { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);  // [value, setter]
+  
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>+</button>
+    </div>
+  );
+}
+Key Rules:
+
+Never modify state directly: ❌ count = 5
+Always use setter: ✅ setCount(5)
+
+
+5. Events
+jsx// onClick
+<button onClick={() => console.log('Clicked!')}>Click</button>
+
+// onChange (inputs)
+<input onChange={(e) => console.log(e.target.value)} />
+
+// onSubmit (forms)
+<form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
+
+6. useEffect (Side Effects)
+jsximport { useEffect } from 'react';
+
+useEffect(() => {
+  // Runs when component loads or dependencies change
+  fetch('https://api.example.com/data')
+    .then(res => res.json())
+    .then(data => setData(data));
+}, []);  // [] = run once on mount
+```
+
+---
+
+## 7. File Organization
+```
+src/
+  components/
+    Header.jsx
+    FoodCard.jsx
+    Cart.jsx
+  App.jsx
+  index.css
+
+8. Styling with Tailwind
+jsx<div className="bg-blue-500 text-white p-4 rounded shadow-lg">
+  <h1 className="text-2xl font-bold">Title</h1>
+  <p className="mt-2">Content</p>
+</div>
+Common Classes:
+
+bg-color-shade - background color
+text-color-shade - text color
+p-4 - padding
+m-4 - margin
+rounded - border radius
+shadow-lg - shadow
+font-bold - bold text
+text-xl - font size
+
+
+9. Component Libraries
+Instead of building everything from scratch:
+jsximport { Button, Modal, Card } from 'ui-library';
+
+<Button variant="primary">Click Me</Button>
+Popular Libraries:
+
+Material-UI (MUI)
+Chakra UI
+shadcn/ui
+Ant Design
+
